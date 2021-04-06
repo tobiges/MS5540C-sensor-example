@@ -46,10 +46,7 @@ void setup()
     SPI.begin();
     pinMode(MCLK_PIN, OUTPUT);
     delay(100);
-}
-
-void loop()
-{
+    
 #ifdef __AVR__
     TCCR1B = (TCCR1B & 0xF8) | 1; //generates the MCLK signal
 #else
@@ -57,7 +54,10 @@ void loop()
     analogWriteRange(256);
 #endif
     analogWrite(MCLK_PIN, 128);
+}
 
+void loop()
+{
     const uint16_t word1 = readData(0x1D50);
     const uint16_t word2 = readData(0x1D60);
     const uint16_t word3 = readData(0x1D90);
